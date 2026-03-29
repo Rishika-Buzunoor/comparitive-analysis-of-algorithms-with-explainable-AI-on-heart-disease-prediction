@@ -1,24 +1,48 @@
-import matplotlib.pyplot as plt
-import os
-
 def plot_metrics(results):
-    os.makedirs("outputs/graphs",exist_ok=True)
-    models=list(results.keys())
+    import matplotlib.pyplot as plt
+    import os
+    import numpy as np
 
-    accuracy=[results[m]["accuracy"] for m in models]
-    precision=[results[m]["precision"] for m in models]
-    recall=[results[m]["recall"] for m in models]
-    f1_score=[results[m]["f1_score"] for m in models]
+    os.makedirs("outputs/graphs", exist_ok=True)
 
-    x=range(len(models))
+    models = list(results.keys())
 
-    plt.figure()
-    plt.plot(x, accuracy, marker='o', label="Accuracy")
-    plt.plot(x, precision, marker='o', label="Precision")
-    plt.plot(x, recall, marker='o', label="Recall")
-    plt.plot(x, f1_score, marker='o', label="F1 Score")
+    accuracy = [results[m]["accuracy"] for m in models]
+    precision = [results[m]["precision"] for m in models]
+    recall = [results[m]["recall"] for m in models]
+    f1 = [results[m]["f1"] for m in models]
 
-    
+    x = np.arange(len(models))
+    width = 0.2
 
-    plt.savefig("outputs/graphs/metrics.png")
+    plt.figure(figsize=(12,6))
+
+    bars1 = plt.bar(x - 1.5*width, accuracy, width, label="Accuracy")
+    bars2 = plt.bar(x - 0.5*width, precision, width, label="Precision")
+    bars3 = plt.bar(x + 0.5*width, recall, width, label="Recall")
+    bars4 = plt.bar(x + 1.5*width, f1, width, label="F1 Score")
+
+    plt.xticks(x, models)
+    plt.xlabel("Models")
+    plt.ylabel("Score")
+    plt.title("Model Comparison Metrics")
+
+    plt.ylim(0.65, 0.85)  # 🔥 zoom for clarity
+    plt.legend()
+    plt.grid(axis='y')
+
+    # ✅ Add values on bars
+    for bars in [bars1, bars2, bars3, bars4]:
+        for bar in bars:
+            height = bar.get_height()
+            plt.text(
+                bar.get_x() + bar.get_width()/2,
+                height,
+                f"{height:.2f}",
+                ha='center',
+                va='bottom',
+                fontsize=8
+            )
+
+    plt.savefig("outputs/graphs/all_metrics.png")
     plt.close()
