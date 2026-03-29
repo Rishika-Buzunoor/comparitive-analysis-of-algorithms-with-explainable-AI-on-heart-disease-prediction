@@ -17,19 +17,19 @@ X_train, X_test, y_train, y_test = preprocess_data(X, y)
 models = train_all_models(X_train, y_train)
 
 #show predictions
-show_predictions(models, X_test, y_test)
+#show_predictions(models, X_test, y_test)
 
 # Evaluate
-results = evaluate(models, X_test, y_test)
+#results = evaluate(models, X_test, y_test)
 
 # Graphs
 
-plot_metrics(results)
+#plot_metrics(results)
 
 # Confusion Matrix
-plot_confusion_matrices(models, results, X_test, y_test)
+#plot_confusion_matrices(models, results, X_test, y_test)
 
 # Explainability
 for name, model in models.items():
     explain_shap(model, X_train, X_test, name)
-    explain_lime(model, X_train, X_test, name)
+explain_lime(models, X_train, X_test)

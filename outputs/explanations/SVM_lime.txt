@@ -1,1 +1,0 @@
-The model predicts heart disease mainly because -0.16 < cp <= 0.87, ca > 0.34, -0.87 < thal <= 1.22, trestbps > 0.47, -0.70 < exang <= 1.44, age > 0.60, -0.98 < slope <= 0.64. However, factors like fbs > -0.41, sex <= -1.45, 0.15 < thalach <= 0.67 reduce the risk.
