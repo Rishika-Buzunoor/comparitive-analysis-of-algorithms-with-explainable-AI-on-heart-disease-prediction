@@ -5,6 +5,7 @@ from src.plot_results import plot_metrics
 from src.confusion_matrix_plot import plot_confusion_matrices
 from src.shap_explain import explain_shap
 from src.lime_explain import explain_lime
+from src.predictions import show_predictions
 
 # Load
 X, y = load_data("data/heart.csv")
@@ -14,6 +15,9 @@ X_train, X_test, y_train, y_test = preprocess_data(X, y)
 
 # Train
 models = train_all_models(X_train, y_train)
+
+#show predictions
+show_predictions(models, X_test, y_test)
 
 # Evaluate
 results = evaluate(models, X_test, y_test)
